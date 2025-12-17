@@ -4,7 +4,7 @@ from typing import Optional
 import os
 def download_video(api_url: str, filename: str) -> str:
     """Download video from API endpoint"""
-    print(f"📥 Downloading from: {api_url}")
+    print(f"Downloading from: {api_url}")
     
     # Call API to get real video URL
     api_response = requests.get(api_url, timeout=30)
@@ -43,7 +43,7 @@ def get_video_info(filename: str) -> tuple[int, int, float]:
         
         return width, height, duration
     except Exception as e:
-        print(f"❌ Probe error: {e}")
+        print(f"Probe error: {e}")
         raise
 
 def process_video(
@@ -54,7 +54,7 @@ def process_video(
     trim: Optional[tuple] = None
 ) -> None:
     """Process video with ffmpeg"""
-    print("⚙️ Processing video...")
+    print("Processing video...")
     
     # Build filter chain
     vf_filters = []
@@ -93,7 +93,7 @@ def process_video(
         
         # Execute with overwrite
         ffmpeg.run(stream, overwrite_output=True, capture_stdout=True, capture_stderr=True)
-        print("✅ Processing complete!")
+        print("Processing complete!")
         
     except ffmpeg.Error as e:
         error_msg = e.stderr.decode() if e.stderr else str(e)
@@ -108,4 +108,4 @@ def cleanup_files(*files):
                 os.remove(file)
                 print(f"🗑️ Cleaned up: {file}")
         except Exception as e:
-            print(f"⚠️ Cleanup error for {file}: {e}")
+            print(f"Cleanup error for {file}: {e}")

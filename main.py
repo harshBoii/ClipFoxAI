@@ -106,7 +106,7 @@ async def start_letter_generation(request: OfferRequest):
         # Config to track this session
         config = {"configurable": {"thread_id": session_id}}
 
-        print(f"🚀 Starting new letter generation session: {session_id}")
+        print(f"Starting new letter generation session: {session_id}")
 
         # Run until it hits the interrupt()
         response = agency_agent_app.invoke(inputs, config)
@@ -123,12 +123,12 @@ async def start_letter_generation(request: OfferRequest):
         }
 
     except Exception as e:
-        print(f"❌ Error starting letter generation: {e}")
+        print(f"Error starting letter generation: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
 # ======================================================
-# 2️⃣ Resume after human review (you already had this)
+# 2️⃣ Resume after human review 
 # ======================================================
 
 @app.post("/resume-letter-review")
@@ -149,7 +149,7 @@ async def resume_letter_review(body: dict):
             }
         }
 
-        print(f"♻️ Resuming letter generation for session {session_id}")
+        print(f"Resuming letter generation for session {session_id}")
 
         command = Command(resume={"user_reviewed_text": edited_letter})
         response = agency_agent_app.invoke(command, config)
@@ -164,7 +164,7 @@ async def resume_letter_review(body: dict):
         }
 
     except Exception as e:
-        print(f"❌ Error resuming letter review: {e}")
+        print(f" Error resuming letter review: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -180,10 +180,10 @@ async def upload_edited_pdf(file: UploadFile = File(...), filename: str = Form(.
             shutil.copyfileobj(file.file, buffer)
 
         public_path = f"/files/edited_{filename}"
-        print(f"🆕 Edited PDF uploaded: {public_path}")
+        print(f"Edited PDF uploaded: {public_path}")
         return JSONResponse({"success": True, "url": public_path})
     except Exception as e:
-        print(f"❌ Error saving edited PDF: {e}")
+        print(f" Error saving edited PDF: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.exception_handler(RequestValidationError)
