@@ -1,0 +1,15 @@
+langgraph 
+langchain 
+langchain_openai 
+jupyterlab
+fastapi 
+uvicorn
+langchain_google_genai
+python-dotenv
+fpdf
+markdown
+weasyprint
+python-multipart
+ffmpeg-python
+pydantic
+requests
